@@ -1,13 +1,7 @@
-import { fetchData1 } from '../libs/api';
-
-let data: string | undefined;
+import { useData1 } from '../hooks/UseData1';
 
 export const DataLoader: React.VFC = () => {
-  // ローディングフラグが立っていてdataがまだ無ければローディングを開始する
-  if (data === undefined) {
-    throw fetchData1().then(d => data = d);
-  }
-  // データがあればそれを表示
+  const data = useData1();
   return (
     <div>
       <div>Data is {data}</div>
