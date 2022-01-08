@@ -1,20 +1,12 @@
-import { useData1 } from '../hooks/UseData1';
+import { Loadable } from './Loadable';
 
-export const DataLoader1: React.VFC = () => {
-  const data = useData1('DataLoader1');
+export const DataLoader: React.VFC<{
+  data: Loadable<string>;
+}> = ({ data }) => {
+  const value = data.getOrThrow();
   return (
     <div>
-      <div>Data is {data}</div>
+      <div>Data is {value}</div>
     </div>
   );
 };
-
-export const DataLoader2: React.VFC = () => {
-  const data = useData1('DataLoader2');
-  return (
-    <div>
-      <div>Data is {data}</div>
-    </div>
-  );
-};
-

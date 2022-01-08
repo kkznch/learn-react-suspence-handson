@@ -1,11 +1,9 @@
-import { fetchData1 } from '../libs/api';
+const dataMap: Map<string, unknown> = new Map();
 
-const dataMap: Map<string, string> = new Map();
-
-export const useData1 = (cacheKey: string): string => {
-  const cachedData = dataMap.get(cacheKey);
+export function useData<T>(cacheKey: string, fetch: () => Promise<T>): T {
+  const cachedData = dataMap.get(cacheKey) as T | undefined;
   if (cachedData === undefined) {
-    throw fetchData1().then((d) => dataMap.set(cacheKey, d));
+    throw fetch().then((d) => dataMap.set(cacheKey, d));
   }
   return cachedData;
 }
