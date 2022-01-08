@@ -2,8 +2,12 @@ import {
   Suspense,
   useState,
 } from 'react';
-// import { AlwaysSuspend } from './components/AlwaysSuspend';
-import { SometimesSuspend } from './components/SometimesSuspend';
+import {
+  // AlwaysSuspend,
+  SometimesSuspend,
+  RenderingNotifier,
+} from './components';
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -11,12 +15,16 @@ function App() {
   return (
     <div>
       <h1>React App!</h1>
+      <RenderingNotifier name="outside-Suspense" />
       <Suspense fallback={<p>Loading...</p>}>
         {/* <AlwaysSuspend /> */}
         <SometimesSuspend />
-        <button onClick={() => setCount((c) => c + 1)}>
-          {count}
-        </button>
+        <RenderingNotifier name="inside-Suspense" />
+        <div>
+          <button onClick={() => setCount((c) => c + 1)}>
+            {count}
+          </button>
+        </div>
       </Suspense>
     </div>
   );
