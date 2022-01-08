@@ -1,11 +1,11 @@
 import { fetchData1 } from '../libs/api';
 
-let data: string | undefined;
+const dataMap: Map<string, string> = new Map();
 
-export const useData1 = (): string => {
-  // dataがまだ無ければローディングを開始する
-  if (data === undefined) {
-    throw fetchData1().then((d) => (data = d));
+export const useData1 = (cacheKey: string): string => {
+  const cachedData = dataMap.get(cacheKey);
+  if (cachedData === undefined) {
+    throw fetchData1().then((d) => dataMap.set(cacheKey, d));
   }
-  return data;
+  return cachedData;
 }
